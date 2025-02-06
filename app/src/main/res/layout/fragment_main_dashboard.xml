@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboardbg"
+    tools:context=".MainDashboard">
+
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:background="@color/blue"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/user"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registered User: 5"
+            android:textColor="@color/white"
+            android:layout_marginTop="25dp"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:background="@color/blue"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/apartment"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apartment: 3"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:background="@color/blue"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/tenant"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tenants: 4"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:background="@color/blue"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="550dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/payment"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="22dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payments: 4"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"/>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/apartmentlistbg"
+    tools:context=".Apartment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="25dp">
+
+        <TextView
+            android:id="@+id/addapartment"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="+ Add Apartment"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:layout_marginTop="80dp"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="71dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@drawable/search_background">
+
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/blue"
+                android:padding="10dp"
+                android:background="@android:color/transparent"
+                android:inputType="text" />
+            <ImageView
+                android:id="@+id/searchbtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/searchicon"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:layout_marginTop="180dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/apartment1"
+                    android:layout_marginLeft="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apartment A"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Details:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Bedroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Restroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Kitchen"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Living room"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly: 3,000"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:id="@+id/addtenant1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Tenant"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:textAlignment="center"
+                        android:padding="5dp"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/apartment2"
+                    android:layout_marginLeft="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apartment B"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Details:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Bedroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Restroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Kitchen"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Living room"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly: 5,000"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:id="@+id/addtenant2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Tenant"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:textAlignment="center"
+                        android:padding="5dp"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/apartment3"
+                    android:layout_marginLeft="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apartment C"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Details:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 Bedroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Restroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Kitchen"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Living room"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly: 12,000"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:id="@+id/addtenant3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Tenant"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:textAlignment="center"
+                        android:padding="5dp"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/aparment4"
+                    android:layout_marginLeft="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apartment D"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Details:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Bedroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Restroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Kitchen"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Living room"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly: 6,000"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:id="@+id/addtenant4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Tenant"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:textAlignment="center"
+                        android:padding="5dp"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@color/blue">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/apartment5"
+                    android:layout_marginLeft="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Apartment E"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Details:"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Bedroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2 Restroom"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Kitchen"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Living room"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly: 10,000"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="25dp"/>
+
+                    <TextView
+                        android:id="@+id/addtenant5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Tenant"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:textAlignment="center"
+                        android:padding="5dp"
+                        />
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</FrameLayout>

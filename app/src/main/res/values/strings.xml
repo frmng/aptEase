@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">AptEase</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="bedroom_number">
+        <item>Bedroom 1</item>
+        <item>Bedroom 2</item>
+        <item>Bedroom 3</item>
+        <item>Bedroom 4</item>
+    </string-array>
+
+    <string-array name="restroom_number">
+        <item>Restroom 1</item>
+        <item>Restroom 2</item>
+        <item>Restroom 3</item>
+        <item>Restroom 4</item>
+    </string-array>
+
+    <string-array name="kitchen_number">
+        <item>Kitchen 1</item>
+        <item>Kitchen 2</item>
+        <item>Kitchen 3</item>
+        <item>Kitchen 4</item>
+    </string-array>
+
+    <string-array name="livingroom_number">
+        <item>Livingroom 1</item>
+        <item>Livingroom 2</item>
+        <item>Livingroom 3</item>
+        <item>Livingroom 4</item>
+    </string-array>
+
+    <string-array name="apartment_type">
+        <item>Apartment A</item>
+        <item>Apartment B</item>
+        <item>Apartment C</item>
+        <item>Apartment D</item>
+        <item>Apartment E</item>
+    </string-array>
+
+    <string-array name="apartment_number">
+        <item>101</item>
+        <item>102</item>
+        <item>103</item>
+        <item>104</item>
+        <item>105</item>
+    </string-array>
+
+
+</resources>

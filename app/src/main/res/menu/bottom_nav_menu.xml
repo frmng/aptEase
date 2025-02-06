@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/baseline_dashboard"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/apartment"
+        android:icon="@drawable/baseline_apartment_l"
+        android:title="Apartment" />
+    <item
+        android:id="@+id/tenant"
+        android:icon="@drawable/baseline_tenant"
+        android:title="Tenant" />
+    <item
+        android:id="@+id/payment"
+        android:icon="@drawable/baseline_payment"
+        android:title="Payment" />
+</menu>
