@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550207072046",
+    "project_id": "aptease-9d03f",
+    "storage_bucket": "aptease-9d03f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550207072046:android:aa3e45a452882a79f2fcbf",
+        "android_client_info": {
+          "package_name": "com.myapp.aptease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7_8qN7kFrAxhGz7Jo-_b3dqKAdOSPgfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

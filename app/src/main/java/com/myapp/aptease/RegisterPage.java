@@ -1,5 +1,6 @@
 package com.myapp.aptease;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterPage extends AppCompatActivity {
 
@@ -26,6 +35,7 @@ public class RegisterPage extends AppCompatActivity {
         CheckBox showPasswordCheckBox = findViewById(R.id.showpassword);
         Button registerButton = findViewById(R.id.loginbtn);
         TextView loginBtn = findViewById(R.id.loginbutton);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
         // Set OnClickListener to navigate to LoginPage when the TextView is clicked
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -50,34 +60,80 @@ public class RegisterPage extends AppCompatActivity {
         // Register button click logic
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
 
-                // Validate the inputs
-                if (email.isEmpty() || password.isEmpty()) {
+                //validate the inputs
+                if(email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(RegisterPage.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Create user account and store it
-                    createUserAccount(email, password);
                 }
+
+                auth.createUserWithEmailAndPassword(email , password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    // Update user profile with full name
+                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .build();
+
+                                    firebaseUser.updateProfile(profileUpdates)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(RegisterPage.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(getApplicationContext(), LoginPage.class));
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(RegisterPage.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
             }
         });
+
+
+//        registerButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String email = emailEditText.getText().toString().trim();
+//                String password = passwordEditText.getText().toString().trim();
+//
+//                // Validate the inputs
+//                if (email.isEmpty() || password.isEmpty()) {
+//                    Toast.makeText(RegisterPage.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    // Create user account and store it
+//                    createUserAccount(email, password);
+//                }
+//            }
+//        });
     }
 
-    private void createUserAccount(String email, String password) {
-        // Store the email and password in SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("email", email);
-        editor.putString("password", password);
-        editor.apply();
-
-        Toast.makeText(RegisterPage.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-
-        // Navigate to LoginPage
-        Intent intent = new Intent(RegisterPage.this, LoginPage.class);
-        startActivity(intent);
-        finish();  // Close the current activity
-    }
+//    private void createUserAccount(String email, String password) {
+//        // Store the email and password in SharedPreferences
+//        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("email", email);
+//        editor.putString("password", password);
+//        editor.apply();
+//
+//        Toast.makeText(RegisterPage.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+//
+//        // Navigate to LoginPage
+//        Intent intent = new Intent(RegisterPage.this, LoginPage.class);
+//        startActivity(intent);
+//        finish();  // Close the current activity
+//    }
 }
