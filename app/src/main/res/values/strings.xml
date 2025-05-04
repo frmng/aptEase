@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="bedroom_number">
+        <item>Select Bedroom</item>
         <item>Bedroom 1</item>
         <item>Bedroom 2</item>
         <item>Bedroom 3</item>
@@ -11,6 +12,7 @@
     </string-array>
 
     <string-array name="restroom_number">
+        <item>Select Restroom</item>
         <item>Restroom 1</item>
         <item>Restroom 2</item>
         <item>Restroom 3</item>
@@ -18,6 +20,7 @@
     </string-array>
 
     <string-array name="kitchen_number">
+        <item>Select Kitchen</item>
         <item>Kitchen 1</item>
         <item>Kitchen 2</item>
         <item>Kitchen 3</item>
@@ -25,6 +28,7 @@
     </string-array>
 
     <string-array name="livingroom_number">
+        <item>Select Livingroom</item>
         <item>Livingroom 1</item>
         <item>Livingroom 2</item>
         <item>Livingroom 3</item>
@@ -32,6 +36,7 @@
     </string-array>
 
     <string-array name="apartment_type">
+        <item>Select Apartment</item>
         <item>Apartment A</item>
         <item>Apartment B</item>
         <item>Apartment C</item>
@@ -40,6 +45,7 @@
     </string-array>
 
     <string-array name="apartment_number">
+        <item>Select Apartment Number</item>
         <item>101</item>
         <item>102</item>
         <item>103</item>

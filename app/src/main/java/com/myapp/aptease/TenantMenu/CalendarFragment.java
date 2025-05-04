@@ -1,4 +1,4 @@
-package com.myapp.aptease;
+package com.myapp.aptease.TenantMenu;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import androidx.fragment.app.Fragment;
+
+import com.myapp.aptease.R;
 
 public class CalendarFragment extends Fragment {  // Renamed class
 

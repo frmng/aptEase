@@ -16,29 +16,29 @@
         android:theme="@style/Theme.AptEase"
         tools:targetApi="31">
         <activity
-            android:name=".TenantForm"
+            android:name=".TenantMenu.TenantForm"
             android:exported="false" />
         <activity
-            android:name=".ApartmentForm"
+            android:name=".ApartmentMenu.ApartmentForm"
             android:exported="false" />
         <activity
-            android:name=".Payment"
+            android:name=".PaymentMenu.Payment"
             android:exported="false" />
 
         <activity
-            android:name=".MainDashboard"
+            android:name=".DashboardMenu.MainDashboard"
             android:exported="false" />
         <activity
             android:name=".Dashboard"
             android:exported="false" />
         <activity
-            android:name=".RegisterPage"
+            android:name=".Account.RegisterPage"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".Account.LoginPage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Splash.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

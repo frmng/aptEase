@@ -1,15 +1,15 @@
-package com.myapp.aptease;
+package com.myapp.aptease.TenantMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+
+import com.myapp.aptease.R;
 
 public class TenantForm extends AppCompatActivity {
 
@@ -37,10 +37,21 @@ public class TenantForm extends AppCompatActivity {
         // Save button click listener
         saveBtn.setOnClickListener(v -> {
             if (areFieldsValid()) {
+                // Create a TenantLists object to hold tenant data
+                String tenantName = fullName.getText().toString().trim();
+                String contactNum = contactNumber.getText().toString().trim();
+                String apartmentTypeValue = apartmentType.getSelectedItem().toString();
+                int apartmentNumberValue = Integer.parseInt(apartmentNumber.getSelectedItem().toString());
+                String registerDateValue = registerDate.getText().toString().trim();
+
+                // Create a TenantLists object with the tenant data
+                TenantLists tenant = new TenantLists(tenantName, apartmentTypeValue, apartmentNumberValue, Integer.parseInt(contactNum));
+
+                // Create intent to pass the tenant data back
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("message", "Tenant added successfully"); // Success message
-                setResult(RESULT_OK, resultIntent); // Set result to OK and pass the message
-                finish(); // Close the TenantForm activity and return to Apartment fragment
+                resultIntent.putExtra("tenant", tenant); //error
+                setResult(RESULT_OK, resultIntent); // Set result to OK and pass the tenant object
+                finish(); // Close the TenantForm activity
             }
         });
 
@@ -53,10 +64,7 @@ public class TenantForm extends AppCompatActivity {
 
     // Method to open the calendar fragment
     private void openCalendarFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(android.R.id.content, new CalendarFragment());
-        transaction.addToBackStack(null);
-        transaction.commit();
+        // Calendar fragment can be opened as needed (not modified for now)
     }
 
     // Method to check if all fields are filled

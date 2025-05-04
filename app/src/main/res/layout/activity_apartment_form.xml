@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:background="@drawable/apartmentformbg"
-    tools:context=".ApartmentForm">
+    tools:context=".ApartmentMenu.ApartmentForm">
 
 
     <LinearLayout
@@ -17,21 +17,14 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/addpicture"
             android:layout_width="300dp"
             android:layout_height="100dp"
             android:elevation="4dp"
             app:cardCornerRadius="4dp"
             android:layout_margin="18dp">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:visibility="gone" />
-
             <TextView
-                android:id="@+id/addpicture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="+"
@@ -71,10 +64,11 @@
             android:textSize="15dp"/>
 
        <Spinner
-           android:id="@+id/bedroomnumber"
+           android:id="@+id/bedroom_number"
            android:layout_width="280dp"
            android:layout_height="30dp"
            android:layout_marginLeft="30dp"
+           android:tooltipText="Select bedroom"
            android:background="@drawable/formbg2"
            android:layout_marginTop="10dp"
            android:entries="@array/bedroom_number"/>
@@ -89,7 +83,7 @@
             android:textSize="15dp"/>
 
         <Spinner
-            android:id="@+id/restroomnumber"
+            android:id="@+id/restroom_number"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
@@ -107,7 +101,7 @@
             android:textSize="15dp"/>
 
         <Spinner
-            android:id="@+id/kitchennumber"
+            android:id="@+id/kitchen_number"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
@@ -126,7 +120,7 @@
             android:textSize="15dp"/>
 
         <Spinner
-            android:id="@+id/livingroomnnumber"
+            android:id="@+id/livingroom_nnumber"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
@@ -145,7 +139,7 @@
             android:textSize="15dp"/>
 
         <EditText
-            android:id="@+id/monthlyprice"
+            android:id="@+id/monthly_price"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:textColor="@color/blue"

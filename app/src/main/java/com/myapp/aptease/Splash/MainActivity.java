@@ -1,9 +1,12 @@
-package com.myapp.aptease;
+package com.myapp.aptease.Splash;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.myapp.aptease.Account.LoginPage;
+import com.myapp.aptease.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.myapp.aptease.ApartmentMenu.Apartment;
+import com.myapp.aptease.DashboardMenu.MainDashboard;
+import com.myapp.aptease.PaymentMenu.Payment;
+import com.myapp.aptease.TenantMenu.Tenant;
 
 public class Dashboard extends AppCompatActivity {
 
