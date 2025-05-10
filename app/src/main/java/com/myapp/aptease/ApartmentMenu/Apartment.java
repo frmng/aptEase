@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,8 @@ public class Apartment extends Fragment {
     private RecyclerView apartmentRecyclerView;
     private DatabaseReference database;
 
-    private ImageView apartmentImg;
+    private ImageView apartmentImg, searchButton;
+    private EditText searchBar;
 
 
     // Declare the ActivityResultLauncher for Apartment Form
@@ -83,6 +85,8 @@ public class Apartment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         apartmentImg = view.findViewById(R.id.apartmentImage);
+        searchButton = view.findViewById(R.id.searchbtn);
+        searchBar = view.findViewById(R.id.searchBar);
 
         // Initialize Firebase Database reference
         database = FirebaseDatabase.getInstance().getReference("apartments");
@@ -93,6 +97,17 @@ public class Apartment extends Fragment {
         apartmentAdapter = new ApartmentAdapter(apartmentList);
         apartmentRecyclerView.setAdapter(apartmentAdapter);
 
+        searchButton.setOnClickListener(v -> {
+            String query = searchBar.getText().toString().trim();
+            if (!query.isEmpty()) {
+                searchApartmentByType(query);
+            } else {
+                // Reload all if search is empty
+                loadApartmentsFromDatabase();
+            }
+        });
+
+
         // Load apartments from Firebase when the fragment is created
         loadApartmentsFromDatabase();
 
@@ -102,6 +117,54 @@ public class Apartment extends Fragment {
         if (addApartment != null) {
             addApartment.setOnClickListener(v -> openApartmentForm());
         }
+    }
+
+    //search apartment method
+    private void searchApartmentByType(String query) {
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                apartmentList.clear();
+
+                for(DataSnapshot apartmentSnapshot : snapshot.getChildren()) {
+                    String apartmentType = apartmentSnapshot.child("apartmentType").getValue(String.class);
+
+                    if(apartmentType != null && apartmentType.toLowerCase().contains(query.toLowerCase())) {
+                        String bedroomNumber = apartmentSnapshot.child("bedroomNumber").getValue(String.class);
+                        String restroomNumber = apartmentSnapshot.child("restroomNumber").getValue(String.class);
+                        String kitchenNumber = apartmentSnapshot.child("kitchenNumber").getValue(String.class);
+                        String livingRoomNumber = apartmentSnapshot.child("livingRoomNumber").getValue(String.class);
+
+                        Object monthlyPriceObj = apartmentSnapshot.child("monthlyPrice").getValue();
+                        int monthlyPayment = 0;
+
+                        if(monthlyPriceObj instanceof Long) {
+                            monthlyPayment = ((Long) monthlyPriceObj).intValue();
+                        } else if(monthlyPriceObj instanceof String) {
+                            try {
+                                monthlyPayment = Integer.parseInt((String) monthlyPriceObj);
+                            } catch(NumberFormatException e) {
+                                continue;
+                            }
+                        }
+
+                        AparmentCardLists aparment = new AparmentCardLists(
+                                apartmentType, String.valueOf(monthlyPayment), bedroomNumber, restroomNumber, kitchenNumber, livingRoomNumber
+                        );
+
+                        apartmentList.add(aparment);
+
+                    }
+                }
+
+                apartmentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Search failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void openApartmentForm() {
