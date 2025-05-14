@@ -1,17 +1,20 @@
 package com.myapp.aptease.TenantMenu;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class TenantLists implements Serializable  {
 
     String tenantName, apartmentType;
     int apartmentNumber, contactNum;
+    Date registerDate;
 
-    public TenantLists(String tenantName, String apartmentType, int apartmentNumber, int contactNum) {
+    public TenantLists(String tenantName, String apartmentType, int apartmentNumber, int contactNum, Date registerDate) {
         this.tenantName = tenantName;
         this.apartmentType = apartmentType;
         this.apartmentNumber = apartmentNumber;
         this.contactNum = contactNum;
+        this.registerDate = registerDate;
     }
 
     public TenantLists(){}
@@ -46,6 +49,14 @@ public class TenantLists implements Serializable  {
 
     public void setContactNum(int contactNum) {
         this.contactNum = contactNum;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
     }
 
 

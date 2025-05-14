@@ -1,5 +1,7 @@
 package com.myapp.aptease.ApartmentMenu;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -10,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapp.aptease.R;
+import com.myapp.aptease.TenantMenu.TenantForm;
 
 import java.util.List;
 
@@ -41,6 +45,15 @@ public class ApartmentAdapter extends RecyclerView.Adapter<ApartmentAdapter.Apar
         holder.livingRoom.setText(apartment.getLivingRoomNumber());
         holder.monthlyRent.setText("Monthly: " + apartment.getMonthlyPrice());
 
+        holder.addTenantButton.setOnClickListener(v -> {
+            // Launch the TenantForm activity here
+            Context context = v.getContext();
+            Intent intent = new Intent(context, TenantForm.class);
+            context.startActivity(intent);
+        });
+
+
+
 //        String base64Image = apartment.getImageBase64();
 //        if (base64Image != null && !base64Image.isEmpty()) {
 //            try {
@@ -67,16 +80,19 @@ public class ApartmentAdapter extends RecyclerView.Adapter<ApartmentAdapter.Apar
     }
 
     public static class ApartmentViewHolder extends RecyclerView.ViewHolder {
-        TextView apartmentName, bedroom, restroom, kitchen, livingRoom, monthlyRent;
-        ImageView apartmentImage;
+        public TextView apartmentName, bedroom, restroom, kitchen, livingRoom, monthlyRent, addTenantButton;
+        public ImageView apartmentImage;
+        public CardView cardView;
 
         public ApartmentViewHolder(View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.cardView);
             apartmentName = itemView.findViewById(R.id.apartment_name);
             bedroom = itemView.findViewById(R.id.bedroom_number);
             restroom = itemView.findViewById(R.id.restroom_number);
             kitchen = itemView.findViewById(R.id.kitchen);
             livingRoom = itemView.findViewById(R.id.livingroom);
+            addTenantButton = itemView.findViewById(R.id.addTenantButton);
             monthlyRent = itemView.findViewById(R.id.monthly_rent);
 //            apartmentImage = itemView.findViewById(R.id.apartmentImage);
         }

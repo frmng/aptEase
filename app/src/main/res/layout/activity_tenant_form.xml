@@ -8,9 +8,6 @@
     android:background="@drawable/tenantformbg"
     tools:context=".TenantMenu.TenantForm">
 
-
-
-
     <LinearLayout
         android:layout_width="340dp"
         android:layout_marginTop="70dp"

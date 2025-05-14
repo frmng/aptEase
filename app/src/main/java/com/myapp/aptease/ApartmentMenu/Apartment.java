@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.myapp.aptease.R;
+import com.myapp.aptease.TenantMenu.TenantForm;
+import com.myapp.aptease.databinding.FragmentApartmentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,9 @@ public class Apartment extends Fragment {
 
     private ImageView apartmentImg, searchButton;
     private EditText searchBar;
+    private Button addTenantButton;
+
+    private FragmentApartmentBinding binding;
 
 
     // Declare the ActivityResultLauncher for Apartment Form
@@ -76,13 +82,9 @@ public class Apartment extends Fragment {
             });
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_apartment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentApartmentBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         apartmentImg = view.findViewById(R.id.apartmentImage);
         searchButton = view.findViewById(R.id.searchbtn);
@@ -107,7 +109,6 @@ public class Apartment extends Fragment {
             }
         });
 
-
         // Load apartments from Firebase when the fragment is created
         loadApartmentsFromDatabase();
 
@@ -117,7 +118,17 @@ public class Apartment extends Fragment {
         if (addApartment != null) {
             addApartment.setOnClickListener(v -> openApartmentForm());
         }
+
+        return view;
     }
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//
+//
+//    }
 
     //search apartment method
     private void searchApartmentByType(String query) {
@@ -170,6 +181,11 @@ public class Apartment extends Fragment {
     private void openApartmentForm() {
         Intent intent = new Intent(getActivity(), ApartmentForm.class);
         apartmentFormLauncher.launch(intent);
+    }
+
+    private void openTenantForm() {
+        Intent intent = new Intent(getActivity(), TenantForm.class);
+        startActivity(intent);
     }
 
     private void loadApartmentsFromDatabase() {

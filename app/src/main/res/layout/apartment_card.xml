@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="16dp"
@@ -96,24 +97,28 @@
                 android:textSize="13sp"
                 android:layout_marginLeft="25dp"/>
 
-            <TextView
-                android:id="@+id/addtenant"
+            <Button
+                android:id="@+id/addTenantButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:text="Add Tenant"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/white"
                 android:layout_marginLeft="25dp"
                 android:textAlignment="center"
-                android:padding="5dp"
+                android:padding="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:textAllCaps="false"
                 />
+
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

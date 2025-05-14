@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.myapp.aptease.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class TenantForm extends AppCompatActivity {
 
     private EditText fullName, contactNumber, registerDate;
@@ -37,37 +42,51 @@ public class TenantForm extends AppCompatActivity {
         // Save button click listener
         saveBtn.setOnClickListener(v -> {
             if (areFieldsValid()) {
-                // Create a TenantLists object to hold tenant data
+                // Extract user input
                 String tenantName = fullName.getText().toString().trim();
                 String contactNum = contactNumber.getText().toString().trim();
                 String apartmentTypeValue = apartmentType.getSelectedItem().toString();
                 int apartmentNumberValue = Integer.parseInt(apartmentNumber.getSelectedItem().toString());
                 String registerDateValue = registerDate.getText().toString().trim();
 
-                // Create a TenantLists object with the tenant data
-                TenantLists tenant = new TenantLists(tenantName, apartmentTypeValue, apartmentNumberValue, Integer.parseInt(contactNum));
+                // Parse register date
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date parsedDate;
+                try {
+                    parsedDate = sdf.parse(registerDateValue);
+                } catch (ParseException e) {
+                    Toast.makeText(this, "Invalid date format. Use dd/MM/yyyy", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                // Create intent to pass the tenant data back
+                // Create a TenantLists object with parsed data
+                TenantLists tenant = new TenantLists(
+                        tenantName,
+                        apartmentTypeValue,
+                        apartmentNumberValue,
+                        Integer.parseInt(contactNum),
+                        parsedDate
+                );
+
+                // Pass tenant back via intent
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("tenant", tenant); //error
-                setResult(RESULT_OK, resultIntent); // Set result to OK and pass the tenant object
-                finish(); // Close the TenantForm activity
+                resultIntent.putExtra("tenant", tenant);
+                setResult(RESULT_OK, resultIntent);
+                finish(); // Close the form
             }
         });
 
         // Cancel button click listener
         cancelBtn.setOnClickListener(v -> {
-            setResult(RESULT_CANCELED); // Set result to CANCELED
-            finish(); // Close the TenantForm activity
+            setResult(RESULT_CANCELED);
+            finish();
         });
     }
 
-    // Method to open the calendar fragment
     private void openCalendarFragment() {
-        // Calendar fragment can be opened as needed (not modified for now)
+        // To be implemented
     }
 
-    // Method to check if all fields are filled
     private boolean areFieldsValid() {
         if (fullName.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Full name is required", Toast.LENGTH_SHORT).show();
@@ -89,11 +108,10 @@ public class TenantForm extends AppCompatActivity {
             Toast.makeText(this, "Register date is required", Toast.LENGTH_SHORT).show();
             return false;
         }
-        return true; // All fields are filled
+        return true;
     }
 
-    // Method to update the registerDate with the selected date
     public void setRegisterDate(String date) {
-        registerDate.setText(date); // Set the selected date in the EditText
+        registerDate.setText(date);
     }
 }
