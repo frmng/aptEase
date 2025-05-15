@@ -17,7 +17,7 @@ import com.myapp.aptease.R;
 
 public class MainDashboard extends Fragment {
 
-    TextView registeredUser, apartmentCountTextView;
+    TextView registeredUser, apartmentCountTextView, tenantCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class MainDashboard extends Fragment {
         // Initialize TextViews
         registeredUser = root.findViewById(R.id.registeredUsers);
         apartmentCountTextView = root.findViewById(R.id.apartments);
+        tenantCount = root.findViewById(R.id.tenants);
 
         // Firebase instance to fetch data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -64,7 +65,7 @@ public class MainDashboard extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String type = snapshot.child("apartmentType").getValue(String.class);
                     if (type != null && !type.trim().isEmpty()) {
-                        validApartmentCount++; // Count only apartments with valid type
+                        validApartmentCount++;
                     }
                 }
                 apartmentCountTextView.setText("Apartments: " + validApartmentCount);
@@ -75,6 +76,22 @@ public class MainDashboard extends Fragment {
                 Toast.makeText(getContext(), "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Get tenant count
+        DatabaseReference tenantRef = database.getReference("tenants");
+        tenantRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int tenantTotal = (int) dataSnapshot.getChildrenCount();
+                tenantCount.setText("Tenants: " + tenantTotal);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getContext(), "Error loading tenants: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return root;
     }

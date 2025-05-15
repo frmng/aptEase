@@ -5,11 +5,13 @@ import java.util.Date;
 
 public class TenantLists implements Serializable  {
 
+    private String key;
     String tenantName, apartmentType;
-    int apartmentNumber, contactNum;
-    Date registerDate;
+    int apartmentNumber;
+    String contactNum;
+    String registerDate;
 
-    public TenantLists(String tenantName, String apartmentType, int apartmentNumber, int contactNum, Date registerDate) {
+    public TenantLists(String tenantName, String apartmentType, int apartmentNumber, String contactNum, String registerDate) {
         this.tenantName = tenantName;
         this.apartmentType = apartmentType;
         this.apartmentNumber = apartmentNumber;
@@ -43,21 +45,23 @@ public class TenantLists implements Serializable  {
         this.apartmentNumber = apartmentNumber;
     }
 
-    public int getContactNum() {
+    public String getContactNum() {
         return contactNum;
     }
 
-    public void setContactNum(int contactNum) {
+    public void setContactNum(String contactNum) {
         this.contactNum = contactNum;
     }
 
-    public Date getRegisterDate() {
+    public String getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
     }
 
+    public String getKey() { return key; }
+    public void setKey(String key) { this.key = key; }
 
 }

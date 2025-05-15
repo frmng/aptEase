@@ -49,6 +49,7 @@ public class ApartmentAdapter extends RecyclerView.Adapter<ApartmentAdapter.Apar
             // Launch the TenantForm activity here
             Context context = v.getContext();
             Intent intent = new Intent(context, TenantForm.class);
+            intent.putExtra("apartmentType", apartment.getApartmentType());
             context.startActivity(intent);
         });
 

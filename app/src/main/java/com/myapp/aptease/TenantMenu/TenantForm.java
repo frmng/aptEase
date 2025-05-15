@@ -1,6 +1,8 @@
 package com.myapp.aptease.TenantMenu;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -9,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.myapp.aptease.R;
 
 import java.text.ParseException;
@@ -19,7 +23,7 @@ import java.util.Locale;
 public class TenantForm extends AppCompatActivity {
 
     private EditText fullName, contactNumber, registerDate;
-    private Spinner apartmentType, apartmentNumber;
+    private EditText apartmentType, apartmentNumber;
     private TextView saveBtn, cancelBtn;
 
     @Override
@@ -36,43 +40,18 @@ public class TenantForm extends AppCompatActivity {
         saveBtn = findViewById(R.id.savebtn1);
         cancelBtn = findViewById(R.id.cancelbtn1);
 
+        String type = getIntent().getStringExtra("apartmentType");
+        if (type != null && !type.isEmpty()) {
+            apartmentType.setText(type);
+        }
+
         // Open calendar fragment on date selection
-        registerDate.setOnClickListener(v -> openCalendarFragment());
+        registerDate.setOnClickListener(v -> openCalendar());
 
         // Save button click listener
         saveBtn.setOnClickListener(v -> {
             if (areFieldsValid()) {
-                // Extract user input
-                String tenantName = fullName.getText().toString().trim();
-                String contactNum = contactNumber.getText().toString().trim();
-                String apartmentTypeValue = apartmentType.getSelectedItem().toString();
-                int apartmentNumberValue = Integer.parseInt(apartmentNumber.getSelectedItem().toString());
-                String registerDateValue = registerDate.getText().toString().trim();
-
-                // Parse register date
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                Date parsedDate;
-                try {
-                    parsedDate = sdf.parse(registerDateValue);
-                } catch (ParseException e) {
-                    Toast.makeText(this, "Invalid date format. Use dd/MM/yyyy", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Create a TenantLists object with parsed data
-                TenantLists tenant = new TenantLists(
-                        tenantName,
-                        apartmentTypeValue,
-                        apartmentNumberValue,
-                        Integer.parseInt(contactNum),
-                        parsedDate
-                );
-
-                // Pass tenant back via intent
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("tenant", tenant);
-                setResult(RESULT_OK, resultIntent);
-                finish(); // Close the form
+                saveTenantData();
             }
         });
 
@@ -83,8 +62,64 @@ public class TenantForm extends AppCompatActivity {
         });
     }
 
-    private void openCalendarFragment() {
-        // To be implemented
+    private void saveTenantData() {
+        String name = fullName.getText().toString().trim();
+        String aptType = apartmentType.getText().toString().trim();
+        String contactRaw = contactNumber.getText().toString();
+        String aptNumberRaw = apartmentNumber.getText().toString();
+
+        // Remove all non-digit characters
+        String contact = contactRaw.replaceAll("[^\\d]", "");
+        String aptNumber = aptNumberRaw.replaceAll("[^\\d]", "");
+
+        String regDate = registerDate.getText().toString().trim();
+
+        String contactNum;
+        int apartmentNum;
+        try {
+            contactNum = contact;
+            apartmentNum = Integer.parseInt(aptNumber);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Contact or apartment number must be numeric", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        TenantLists tenant = new TenantLists(name, aptType, apartmentNum, contactNum, regDate);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("tenants");
+        String key = ref.push().getKey();
+
+        if (key != null) {
+            ref.child(key).setValue(tenant)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Tenant saved successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Failed to save: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
+    }
+
+
+    private void openCalendar() {
+        final Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                TenantForm.this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    // Format the selected date
+                    String formattedDate = String.format(Locale.getDefault(), "%02d/%02d/%d",
+                            selectedMonth + 1, selectedDay, selectedYear);
+                    registerDate.setText(formattedDate);
+                },
+                year, month, day
+        );
+
+        datePickerDialog.show();
     }
 
     private boolean areFieldsValid() {
@@ -96,12 +131,12 @@ public class TenantForm extends AppCompatActivity {
             Toast.makeText(this, "Contact number is required", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (apartmentType.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Please select an apartment type", Toast.LENGTH_SHORT).show();
+        if (apartmentType.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Apartment Type is required", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (apartmentNumber.getSelectedItemPosition() == 0) {
-            Toast.makeText(this, "Please select an apartment number", Toast.LENGTH_SHORT).show();
+        if (apartmentNumber.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Apartment Number is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (registerDate.getText().toString().trim().isEmpty()) {

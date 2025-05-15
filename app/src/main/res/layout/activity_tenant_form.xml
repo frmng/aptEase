@@ -60,6 +60,7 @@
             android:layout_height="30dp"
             android:textColor="@color/blue"
             android:hint="Tenant Contact Number"
+            android:inputType="number"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:layout_gravity="center"
@@ -75,14 +76,16 @@
             android:textStyle="bold"
             android:textSize="18sp"/>
 
-        <Spinner
+        <EditText
             android:id="@+id/apartmenttype"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:hint="Tenant Contact Number"
             android:background="@drawable/formbg2"
-            android:layout_marginTop="10dp"
-            android:entries="@array/apartment_type"/>
+            android:layout_marginTop="10dp" />
 
 
         <TextView
@@ -94,14 +97,17 @@
             android:textStyle="bold"
             android:textSize="18sp"/>
 
-        <Spinner
+        <EditText
             android:id="@+id/apartmentnumber"
             android:layout_width="280dp"
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
+            android:padding="5dp"
+            android:inputType="number"
+            android:hint="Apartment Number"
+            android:textSize="15sp"
             android:background="@drawable/formbg2"
-            android:layout_marginTop="10dp"
-            android:entries="@array/apartment_number"/>
+            android:layout_marginTop="10dp" />
 
 
         <TextView

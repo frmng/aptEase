@@ -44,7 +44,7 @@ public class Apartment extends Fragment {
 
     private ImageView apartmentImg, searchButton;
     private EditText searchBar;
-    private Button addTenantButton;
+    private TextView addTenantButton;
 
     private FragmentApartmentBinding binding;
 
@@ -122,13 +122,6 @@ public class Apartment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//
-//
-//    }
 
     //search apartment method
     private void searchApartmentByType(String query) {
