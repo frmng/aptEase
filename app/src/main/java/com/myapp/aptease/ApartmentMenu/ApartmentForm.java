@@ -60,7 +60,14 @@ public class ApartmentForm extends AppCompatActivity {
             }
         });
         cancelBtn.setOnClickListener(v -> finishWithResult());
-//        addImage.setOnClickListener(v -> openImageChooser());
+
+        addImage.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        });
+
     }
 
     @Override
@@ -81,14 +88,6 @@ public class ApartmentForm extends AppCompatActivity {
             }
         }
     }
-
-
-    private void openImageChooser() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
 
     private void checkIfApartmentExists() {
         String apartmentTypeText = apartmentType.getText().toString();
@@ -147,9 +146,6 @@ public class ApartmentForm extends AppCompatActivity {
         String livingRoomNumberText = livingRoomNumber.getSelectedItem().toString();
         String monthlyPriceText = monthlyPrice.getText().toString();
 
-        // Do NOT redeclare base64Image here
-        // Use the class-level variable directly
-
         String apartmentId = database.push().getKey();
 
         if (apartmentId != null) {
@@ -160,7 +156,7 @@ public class ApartmentForm extends AppCompatActivity {
             apartmentValues.put("kitchenNumber", kitchenNumberText);
             apartmentValues.put("livingRoomNumber", livingRoomNumberText);
             apartmentValues.put("monthlyPrice", monthlyPriceText);
-//            apartmentValues.put("imageBase64", base64Image);
+            apartmentValues.put("imageBase64", base64Image);
 
             database.child(apartmentId).setValue(apartmentValues)
                     .addOnCompleteListener(task -> {
@@ -172,7 +168,7 @@ public class ApartmentForm extends AppCompatActivity {
                             resultIntent.putExtra("kitchenNumber", kitchenNumberText);
                             resultIntent.putExtra("livingRoomNumber", livingRoomNumberText);
                             resultIntent.putExtra("monthlyPrice", monthlyPriceText);
-//                            resultIntent.putExtra("base64Image", base64Image);
+                            resultIntent.putExtra("base64Image", base64Image);
                             setResult(RESULT_OK, resultIntent);
                             finish();
                         } else {

@@ -17,7 +17,8 @@
         <ImageView
             android:id="@+id/apartmentImage"
             android:layout_width="180dp"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
             android:src="@drawable/apartment1"
             android:layout_marginLeft="15dp"/>
 

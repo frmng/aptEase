@@ -45,34 +45,24 @@ public class ApartmentAdapter extends RecyclerView.Adapter<ApartmentAdapter.Apar
         holder.livingRoom.setText(apartment.getLivingRoomNumber());
         holder.monthlyRent.setText("Monthly: " + apartment.getMonthlyPrice());
 
+        String base64Image = apartment.getImageBase64();
+        Log.d("ApartmentAdapter", "Raw Base64 string: " + base64Image);
+
+        if (base64Image != null && !base64Image.isEmpty()) {
+            byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.apartmentImage.setImageBitmap(decodedByte);
+        } else {
+            holder.apartmentImage.setImageResource(R.drawable.apartment1);
+        }
+
+
         holder.addTenantButton.setOnClickListener(v -> {
-            // Launch the TenantForm activity here
             Context context = v.getContext();
             Intent intent = new Intent(context, TenantForm.class);
             intent.putExtra("apartmentType", apartment.getApartmentType());
             context.startActivity(intent);
         });
-
-
-
-//        String base64Image = apartment.getImageBase64();
-//        if (base64Image != null && !base64Image.isEmpty()) {
-//            try {
-//                byte[] imageBytes = Base64.decode(base64Image, Base64.DEFAULT);
-//                Bitmap decodedBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-//                if (decodedBitmap != null) {
-//                    holder.apartmentImage.setImageBitmap(decodedBitmap);
-//                } else {
-//                    Log.e("Adapter", "Decoded bitmap is null");
-//                    holder.apartmentImage.setImageResource(R.drawable.apartment1);
-//                }
-//            } catch (Exception e) {
-//                Log.e("Adapter", "Image decode error", e);
-//                holder.apartmentImage.setImageResource(R.drawable.apartment1);
-//            }
-//        } else {
-//            holder.apartmentImage.setImageResource(R.drawable.apartment1);
-//        }
     }
 
     @Override
@@ -95,7 +85,7 @@ public class ApartmentAdapter extends RecyclerView.Adapter<ApartmentAdapter.Apar
             livingRoom = itemView.findViewById(R.id.livingroom);
             addTenantButton = itemView.findViewById(R.id.addTenantButton);
             monthlyRent = itemView.findViewById(R.id.monthly_rent);
-//            apartmentImage = itemView.findViewById(R.id.apartmentImage);
+            apartmentImage = itemView.findViewById(R.id.apartmentImage);
         }
     }
 }

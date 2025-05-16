@@ -215,9 +215,18 @@ public class Apartment extends Fragment {
                         continue;
                     }
 
+                    // Read the Base64 string from Firebase
+                    String base64Image = apartmentSnapshot.child("imageBase64").getValue(String.class);
+
+                    // Create apartment object including Base64 image string
                     AparmentCardLists apartment = new AparmentCardLists(
-                            apartmentType, String.valueOf(monthlyPayment), bedroomNumber, restroomNumber,
-                            kitchenNumber, livingRoomNumber
+                            apartmentType,
+                            String.valueOf(monthlyPayment),
+                            bedroomNumber,
+                            restroomNumber,
+                            kitchenNumber,
+                            livingRoomNumber,
+                            base64Image  // add this to your model constructor
                     );
 
                     apartmentList.add(apartment);
