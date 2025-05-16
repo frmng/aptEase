@@ -17,7 +17,7 @@ import com.myapp.aptease.R;
 
 public class MainDashboard extends Fragment {
 
-    TextView registeredUser, apartmentCountTextView, tenantCount;
+    TextView registeredUser, apartmentCountTextView, tenantCount, paymentCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +28,8 @@ public class MainDashboard extends Fragment {
         registeredUser = root.findViewById(R.id.registeredUsers);
         apartmentCountTextView = root.findViewById(R.id.apartments);
         tenantCount = root.findViewById(R.id.tenants);
+        paymentCount = root.findViewById(R.id.paymentCount);
+
 
         // Firebase instance to fetch data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -92,7 +94,30 @@ public class MainDashboard extends Fragment {
             }
         });
 
+        loadPaymentCount(database);
 
         return root;
+    }
+
+    private void loadPaymentCount(FirebaseDatabase database) {
+        DatabaseReference paymentRef = database.getReference("tenantPayments");
+        paymentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // Count valid payments (non-null keys)
+                int count = 0;
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    if (child.exists()) {
+                        count++;
+                    }
+                }
+                paymentCount.setText("Payments: " + count);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(getContext(), "Error loading payments: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

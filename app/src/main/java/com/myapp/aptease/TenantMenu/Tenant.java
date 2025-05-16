@@ -35,6 +35,7 @@ public class Tenant extends Fragment {
     EditText searchTenant;
     ImageView searchTenantButton;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tenant, container, false);

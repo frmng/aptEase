@@ -2,9 +2,11 @@ package com.myapp.aptease.TenantMenu;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,8 +15,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.myapp.aptease.PaymentMenu.PaymentLists;
+import com.myapp.aptease.PaymentMenu.TenantPaymentHistory;
 import com.myapp.aptease.R;
 
 import java.util.List;
@@ -133,9 +141,134 @@ public class TenantAdapter extends RecyclerView.Adapter<TenantAdapter.TenantView
         });
 
         holder.takeFeeButton.setOnClickListener(v -> {
-            // Handle fee collection
+            TenantLists tenantFee = tenantLists.get(position);
+            String apartmentName = tenantFee.getApartmentType().trim(); // trim here once
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Enter Payment Amount");
+
+            final EditText input = new EditText(context);
+            input.setHint("Enter monthly fee for " + apartmentName);
+            input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+            builder.setView(input);
+
+            builder.setPositiveButton("Submit", null);
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            AlertDialog dialog = builder.create();
+            dialog.setOnShowListener(d -> {
+                Button submitButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                submitButton.setOnClickListener(view -> {
+                    String enteredAmount = input.getText().toString().trim();
+                    if (enteredAmount.isEmpty()) {
+                        Toast.makeText(context, "Please enter an amount", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Use the correct reference path here
+                    DatabaseReference paymentRef = FirebaseDatabase.getInstance().getReference("apartments");
+                    paymentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Log.d("PAYMENT_DEBUG", "Number of children: " + snapshot.getChildrenCount());
+                            boolean foundMatch = false;
+
+                            for (DataSnapshot snap : snapshot.getChildren()) {
+                                String dbApartmentType = snap.child("apartmentType").getValue(String.class);
+                                String monthlyPriceStr = snap.child("monthlyPrice").getValue(String.class);
+
+                                Log.d("PAYMENT_DEBUG", "Checking apartmentType: '" + dbApartmentType + "' against: '" + apartmentName + "'");
+
+                                if (dbApartmentType != null && monthlyPriceStr != null &&
+                                        dbApartmentType.trim().equalsIgnoreCase(apartmentName)) {
+
+                                    foundMatch = true;
+
+                                    try {
+                                        int monthlyPrice = Integer.parseInt(monthlyPriceStr);
+                                        int paidAmount = Integer.parseInt(enteredAmount);
+
+                                        if (paidAmount != monthlyPrice) {
+                                            Toast.makeText(context, "Amount must be exactly ₱" + monthlyPrice, Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+                                        // Valid payment
+                                        String paymentStatus = "Paid";
+                                        String currentDate = java.text.DateFormat.getDateInstance().format(new java.util.Date());
+
+                                        PaymentLists payment = new PaymentLists(
+                                                tenantFee.getTenantName(),
+                                                currentDate,
+                                                String.valueOf(monthlyPrice),
+                                                paymentStatus
+                                        );
+
+                                        DatabaseReference recordRef = FirebaseDatabase.getInstance().getReference("tenantPayments");
+                                        recordRef.push().setValue(payment).addOnCompleteListener(task -> {
+                                            if (task.isSuccessful()) {
+                                                // ✅ Save to tenantPaymentHistory
+                                                String tenantName = payment.getTenantPayment();
+                                                String datePaid = payment.getRegisteredDate();
+                                                String monthKey = getMonthYear(datePaid);
+
+                                                TenantPaymentHistory history = new TenantPaymentHistory(
+                                                        payment.getMonthlyFee(),
+                                                        payment.getStatus(),
+                                                        datePaid
+                                                );
+
+                                                DatabaseReference historyRef = FirebaseDatabase.getInstance()
+                                                        .getReference("tenantPaymentHistory")
+                                                        .child(tenantName)
+                                                        .child(monthKey);
+
+                                                historyRef.setValue(history).addOnCompleteListener(historyTask -> {
+                                                    if (historyTask.isSuccessful()) {
+                                                        Toast.makeText(context, "Payment recorded successfully", Toast.LENGTH_SHORT).show();
+                                                        dialog.dismiss();
+                                                    } else {
+                                                        Toast.makeText(context, "Payment saved but failed to record history", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+
+                                            } else {
+                                                Toast.makeText(context, "Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+
+                                    } catch (NumberFormatException e) {
+                                        Toast.makeText(context, "Invalid number entered", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    break; // stop looping after match
+                                }
+                            }
+
+                            if (!foundMatch) {
+                                Toast.makeText(context, "No payment data found for this apartment", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(context, "DB Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                });
+            });
+
+            dialog.show();
         });
+
+
     }
+
+    private String getMonthYear(String dateStr) {
+        String[] parts = dateStr.split(" ");
+        return parts.length >= 3 ? parts[1] + " " + parts[2] : "Unknown";
+    }
+
 
     @Override
     public int getItemCount() {
