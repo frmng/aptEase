@@ -1,23 +1,35 @@
 package com.myapp.aptease.DashboardMenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.myapp.aptease.Account.LoginPage;
 import com.myapp.aptease.R;
 
 public class MainDashboard extends Fragment {
 
     TextView registeredUser, apartmentCountTextView, tenantCount, paymentCount;
+    Button logoutButton;
+
+    private FirebaseAuth auth;
+    private FirebaseUser currentUser;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +41,12 @@ public class MainDashboard extends Fragment {
         apartmentCountTextView = root.findViewById(R.id.apartments);
         tenantCount = root.findViewById(R.id.tenants);
         paymentCount = root.findViewById(R.id.paymentCount);
+        logoutButton = root.findViewById(R.id.logoutButton);
 
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+
+        logoutButton.setOnClickListener(v -> signOut());
 
         // Firebase instance to fetch data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -98,6 +115,14 @@ public class MainDashboard extends Fragment {
 
         return root;
     }
+
+    private void signOut() {
+        auth.signOut();
+        Intent intent = new Intent(getContext(), LoginPage.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
 
     private void loadPaymentCount(FirebaseDatabase database) {
         DatabaseReference paymentRef = database.getReference("tenantPayments");

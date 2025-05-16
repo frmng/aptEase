@@ -6,6 +6,19 @@
     android:background="@drawable/dashboardbg"
     tools:context=".DashboardMenu.MainDashboard">
 
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/blue"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textColor="#f9f9f9"
+        android:drawableLeft="@drawable/logout"
+        android:drawableTint="#f9f9f9"/>
 
 
     <LinearLayout
